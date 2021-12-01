@@ -1,23 +1,42 @@
-import Head from "next/head";
-import Link from "next/link";
+import HeadInfo from "../components/HeadInfo";
 
-export default function Home() {
+export default function Home({ posts }) {
+  console.log(posts);
   return (
     <div>
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/photos">Photos</Link>
-        </li>
-      </ul>
-      <Head>
-        <title>My Blog</title>
-        <meta keyword="My Blog by Next JS" />
-        <meta contents="My Blog by Next JS" />
-      </Head>
+      <HeadInfo />
       <h1>Welcome to My Blog</h1>
+      <ul>
+        {posts.map((post) => {
+          return <li key={post.id}>{post.title}</li>;
+        })}
+      </ul>
     </div>
   );
 }
+
+// export const getServerSideProps = async () => {
+//   const res = await fetch(
+//     `https://jsonplaceholder.typicode.com/posts?_start=0&_end=10`
+//   );
+//   const posts = await res.json();
+
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// };
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?_start=0&_end=10`
+  );
+  const posts = await res.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
