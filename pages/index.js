@@ -1,7 +1,6 @@
 import HeadInfo from "../components/HeadInfo";
 
 export default function Home({ posts }) {
-  console.log(posts);
   return (
     <div>
       <HeadInfo />
