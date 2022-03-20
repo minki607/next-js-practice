@@ -1,15 +1,27 @@
+import { useEffect, useState } from "react";
 import HeadInfo from "../components/HeadInfo";
 import Image from "next/image";
 import photoStyles from "../styles/Photos.module.css";
 import Link from "next/link";
+import { getPhotosFromDB } from "./api/photos";
 
-const photos = ({ photos }) => {
+const Photos = ({ photos }) => {
+  // const [photos, setPhotos] = useState([]);
+  // useEffect(() => {
+  //   const fetchPhotos = async () => {
+  //     const res = await fetch("/api/photos");
+  //     const { photos } = await res.json();
+  //     setPhotos(photos);
+  //   };
+  //   fetchPhotos();
+  // }, []);
+
   return (
     <div>
       <HeadInfo title="My Blog Photos" />
       <h1>photos</h1>
       <ul className={photoStyles.photos}>
-        {photos.map((photo) => {
+        {photos?.map((photo) => {
           return (
             <li key={photo.id}>
               <Link href={`/photos/${photo.id}`}>
@@ -33,10 +45,7 @@ const photos = ({ photos }) => {
 };
 
 export const getStaticProps = async () => {
-  const res = await fetch(
-    "https://jsonplaceholder.typicode.com/photos?_start=0&_end=10"
-  );
-  const photos = await res.json();
+  const photos = getPhotosFromDB();
   return {
     props: {
       photos,
@@ -44,4 +53,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default photos;
+export default Photos;

@@ -4,7 +4,7 @@ export default function Home({ posts }) {
   return (
     <div>
       <HeadInfo />
-      <h1>Welcome to My Blog</h1>
+      <h1></h1>
       <ul>
         {posts.map((post) => {
           return <li key={post.id}>{post.title}</li>;
@@ -24,7 +24,6 @@ export const getStaticProps = async () => {
     props: {
       posts,
     },
-    revalidate: 20,
   };
 };
 
